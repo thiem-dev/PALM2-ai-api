@@ -1,6 +1,7 @@
 # Sample PALM2 prompt and response app.
 - index.html doesn't have anything linked to it.
 
+- use `npm start`
 
 ### Helpful Links
 

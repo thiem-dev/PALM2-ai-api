@@ -1,12 +1,20 @@
-
 // bard stuff to exported to main.js
 const { DiscussServiceClient } = require("@google-ai/generativelanguage");
 const { GoogleAuth } = require("google-auth-library");
 const fs = require('fs');
 const dotenv = require('dotenv');
+const express = require('express')
+const cors = require('cors')
 
 dotenv.config();
 
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'))
+
+
+const apiPort = 3000; 
 const MODEL_NAME = "models/chat-bison-001";
 const API_KEY = process.env.GOOG_API_KEY;
 
@@ -19,7 +27,7 @@ const client = new DiscussServiceClient({
 const rawData = fs.readFileSync('sample.json');
 const recipeData = JSON.parse(rawData);
 
-
+let bardData;
 
 async function askTheCook() {
   const result = await client.generateMessage({
@@ -32,8 +40,41 @@ async function askTheCook() {
         Do not provide anything else` }],
     },
   });
+
   const data = result[0].candidates[0].content;
+  console.log('inside askCook', data)
   return data;
 }
 
-console.log(askTheCook());
+app.get('/askCook', async (req, res) => {
+  try{
+      const resultStr = await askTheCook();
+      const result = parseRecipeStr(resultStr)
+      res.status(201).send(result);
+  } catch (error){
+      console.log(error)
+      res.status(400).json(error)
+  }
+});
+
+
+function parseRecipeStr(str){
+  // Use a regular expression to extract the JSON string
+  const regex = /```json\n([\s\S]*?)```/;
+  const match = str.match(regex);
+  
+  if (match && match[1]) {
+    const jsonString = match[1].trim();
+    // console.log(jsonString);
+    return jsonString;
+  } else {
+    return 'No JSON string found in the input text.';
+  }
+}
+
+
+
+
+app.listen(apiPort, () => {
+  console.log(`api server listening on port http://localhost:${apiPort}`)
+});
