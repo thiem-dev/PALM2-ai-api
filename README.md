@@ -1,5 +1,5 @@
 # Sample PALM2 prompt and response app.
-- d
+- index.html doesn't have anything linked to it.
 
 
 ### Helpful Links

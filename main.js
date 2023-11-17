@@ -20,7 +20,8 @@ const rawData = fs.readFileSync('sample.json');
 const recipeData = JSON.parse(rawData);
 
 
-async function main() {
+
+async function askTheCook() {
   const result = await client.generateMessage({
     model: MODEL_NAME, // Required. The model to use to generate the result.
     temperature: 0.5, // Optional. Value `0.0` always uses the highest-probability result.
@@ -31,8 +32,8 @@ async function main() {
         Do not provide anything else` }],
     },
   });
-
-  console.log(result[0].candidates[0].content);
+  const data = result[0].candidates[0].content;
+  return data;
 }
 
-main();
+console.log(askTheCook());
