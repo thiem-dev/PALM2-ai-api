@@ -8,13 +8,10 @@ const cors = require('cors')
 
 dotenv.config();
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'))
+
+// ------------------------------------------------------------------------------------ PALM2 AI ITEMS
 
 
-const apiPort = 3000; 
 const MODEL_NAME = "models/chat-bison-001";
 const API_KEY = process.env.GOOG_API_KEY;
 
@@ -27,7 +24,6 @@ const client = new DiscussServiceClient({
 const rawData = fs.readFileSync('sample.json');
 const recipeData = JSON.parse(rawData);
 
-let bardData;
 
 async function askTheCook() {
   const result = await client.generateMessage({
@@ -46,16 +42,7 @@ async function askTheCook() {
   return data;
 }
 
-app.get('/askCook', async (req, res) => {
-  try{
-      const resultStr = await askTheCook();
-      const result = parseRecipeStr(resultStr)
-      res.status(201).send(result);
-  } catch (error){
-      console.log(error)
-      res.status(400).json(error)
-  }
-});
+// ------------------------------------------------------------------------------------ UTIL FUNCTIONS
 
 
 function parseRecipeStr(str){
@@ -74,6 +61,25 @@ function parseRecipeStr(str){
 
 
 
+// ------------------------- LOCALHOST SERVER ITEMS
+
+const apiPort = 3000; 
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'))
+
+
+app.get('/askCook', async (req, res) => {
+  try{
+      const resultStr = await askTheCook();
+      const result = parseRecipeStr(resultStr)
+      res.status(201).send(result);
+  } catch (error){
+      console.log(error)
+      res.status(400).json(error)
+  }
+});
 
 app.listen(apiPort, () => {
   console.log(`api server listening on port http://localhost:${apiPort}`)
