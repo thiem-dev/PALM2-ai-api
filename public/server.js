@@ -61,20 +61,33 @@ return data;
 
 // ------------------------------------------------------------------------------------ UTIL FUNCTIONS
 
-
+// less harsh parser
 function parseRecipeStr(str){
   // Use a regular expression to extract the JSON string
   const regex = /```json\n([\s\S]*?)```/;
   const match = str.match(regex);
-  
-  if (match && match[1]) {
-    const jsonString = match[1].trim();
+  const jsonString = match[1].trim();
     // console.log(jsonString);
     return jsonString;
-  } else {
-    return 'No JSON string found in the input text.';
-  }
 }
+
+
+
+// function parseRecipeStr(str){
+//   // Use a regular expression to extract the JSON string
+//   const regex = /```json\n([\s\S]*?)```/;
+//   const match = str.match(regex);
+  
+//   if (match && match[1]) {
+//     const jsonString = match[1].trim();
+//     // console.log(jsonString);
+//     return jsonString;
+//   } else {
+//     return 'No JSON string found in the input text.';
+//   }
+// }
+
+
 
 
 
@@ -92,9 +105,10 @@ app.post('/api/ai/recipe', async (req, res) => {
 
     try{
         const resultStr = await getAiRecipe(userInput);
-        res.status(201).send(resultStr); //checking varying results
-        // const result = parseRecipeStr(resultStr)
-        // res.status(201).send(result);
+        console.log(resultStr)
+        // res.status(201).send(resultStr); //checking varying results
+        const result = parseRecipeStr(resultStr)
+        res.status(201).send(result);
     } catch (error){
         console.log(error)
         res.status(400).json(error)
