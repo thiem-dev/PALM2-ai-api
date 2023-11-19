@@ -1,4 +1,4 @@
-Analyze the following journal entry. Follow the instructions and format your response to match the format instructions, no matter what!
+Follow the instructions and format your response to match the format instructions, no matter what!
 You must format your output as a JSON value that adheres to a given "JSON Schema" instance.
 
 "JSON Schema" is a declarative language that allows you to annotate and validate JSON documents.

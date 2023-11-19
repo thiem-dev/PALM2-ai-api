@@ -2,6 +2,7 @@
 const { DiscussServiceClient } = require("@google-ai/generativelanguage");
 const { GoogleAuth } = require("google-auth-library");
 const fs = require('fs');
+const json5 = require('json5');
 const dotenv = require('dotenv');
 const express = require('express')
 const cors = require('cors')
@@ -27,13 +28,14 @@ async function getAiRecipe(str) {
     const result = await client.generateMessage({
         model: MODEL_NAME, // Required. The model to use to generate the result.
         temperature: 0.5, // Optional. Value `0.0` always uses the highest-probability result.
-        candidateCount: 3, // Optional. The number of candidate results to generate.
+        candidateCount: 2, // Optional. The number of candidate results to generate.
         prompt: {
             // Required. Alternating prompt/response messages.
             messages: [{ content: query }],
         },
     });
     const data = result[0].candidates;
+    console.log(result[0].candidates);
     return data;
 }
 
@@ -59,33 +61,50 @@ async function getRecipeImage(){
 // less harsh parser 
 function parseRecipeStr(str){
   // Use a regular expression to extract the JSON string
-  const regex = /```json\n([\s\S]*?)```/;
-  const match = str.match(regex);
-  const jsonString = match[1].trim();
-    // console.log(jsonString);
-    return jsonString;
+  try{
+    const regex = /```json\n([\s\S]*?)```/;
+    const match = str.match(regex);
+    // if(jsonString)
+    const jsonString = match[1].trim();
+
+    console.log('jsonString',jsonString);
+  
+    const cleanedContent = jsonString
+    .replace(/\n/g, '')   // Remove newlines
+    .replace(/\t/g, '')   // Remove tabs
+    .replace(/\r/g, '')   // Remove carriage returns
+    .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+  
+    console.log('cleanedContent', cleanedContent)
+
+      return cleanedContent;
+  } catch (error){
+    console.error(error);
+  }
+
 }
 
-
-/* filter thru for true json, otherwise drop. (ai hallucinates bad json 50/50 chance)
-- Returns array of good json candidates
-*/
 const filterAndParseJSON = (array) => {
-  let contentStr = ``;
-  let parsedStr;
-  const jsonObjList = [];
-  array.filter((item) => {
+  const jsonObj = {}; // Change to an object instead of an array
+  // console.log(array)
+
+  array.forEach((item, index) => {
     try {
       // Attempt to parse the "content" property as JSON
-      contentStr = item.content;
-      parsedStr = parseRecipeStr(contentStr)
-      const parsedContent = JSON.parse(parsedStr);
-      jsonObjList.push({ author: item.author, content: parsedContent });
+      const contentStr = item.content;
+      const parsedStr = parseRecipeStr(contentStr);
+      console.log(parsedStr)
+
+      const recipeObj = json5.parse(parsedStr);
+
+      jsonObj[index] = { content: recipeObj };
     } catch (error) {
       // Ignore errors, and return false for items that couldn't be parsed
+      return error;
     }
   });
-  return jsonObjList;
+
+  return jsonObj;
 };
 
 
@@ -102,9 +121,10 @@ app.post('/api/ai/recipe', async (req, res) => {
 
   try{
       const resultCandidates = await getAiRecipe(userInput);
-      console.log(resultCandidates)
-      const parsedJSONItems = filterAndParseJSON(resultCandidates);
-      res.status(201).send(parsedJSONItems); //checking varying results
+      // res.send(resultCandidates);
+      res.send(filterAndParseJSON(resultCandidates));
+      
+
   } catch (error){
       console.log(error)
       res.status(400).json(error)
