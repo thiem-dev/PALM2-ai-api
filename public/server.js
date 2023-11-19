@@ -2,7 +2,7 @@
 const { DiscussServiceClient } = require("@google-ai/generativelanguage");
 const { GoogleAuth } = require("google-auth-library");
 const fs = require('fs');
-const json5 = require('json5');
+const json5 = require('json5'); //makes json format more forgiving 
 const dotenv = require('dotenv');
 const express = require('express')
 const cors = require('cors')
@@ -35,7 +35,6 @@ async function getAiRecipe(str) {
         },
     });
     const data = result[0].candidates;
-    console.log(result[0].candidates);
     return data;
 }
 
@@ -60,28 +59,26 @@ async function getRecipeImage(){
 
 // less harsh parser 
 function parseRecipeStr(str){
+  console.log(str)
   // Use a regular expression to extract the JSON string
   try{
-    const regex = /```json\n([\s\S]*?)```/;
+    const regex = /```json([\s\S]*?)```/;
     const match = str.match(regex);
-    // if(jsonString)
     const jsonString = match[1].trim();
-
-    console.log('jsonString',jsonString);
   
     const cleanedContent = jsonString
     .replace(/\n/g, '')   // Remove newlines
     .replace(/\t/g, '')   // Remove tabs
     .replace(/\r/g, '')   // Remove carriage returns
-    .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
-  
-    console.log('cleanedContent', cleanedContent)
+    .replace(/\s+/g, ' ') // Replace multiple spaces with a single space)
+    .replace(/\\/g, '') // remove the backslashes
+    .replace(/,\s*]/, ']') // Use the replace method to remove the trailing comma in the "ingredients" array
 
-      return cleanedContent;
+    return cleanedContent;
+
   } catch (error){
     console.error(error);
   }
-
 }
 
 const filterAndParseJSON = (array) => {
@@ -93,15 +90,20 @@ const filterAndParseJSON = (array) => {
       // Attempt to parse the "content" property as JSON
       const contentStr = item.content;
       const parsedStr = parseRecipeStr(contentStr);
-      console.log(parsedStr)
+      // console.log(parsedStr)
 
       const recipeObj = json5.parse(parsedStr);
 
       jsonObj[index] = { content: recipeObj };
     } catch (error) {
-      // Ignore errors, and return false for items that couldn't be parsed
+
+      const contentStr = item.content;
+      const parsedStr = parseRecipeStr(contentStr);
+
+      jsonObj[`failed${index}`] = { reason: error, content: parsedStr };
       return error;
     }
+
   });
 
   return jsonObj;
