@@ -40,7 +40,7 @@ async function getRecipeData(obj){
 
 //TODO setup image prompt
 async function getRecipeImage(obj){
-  const url = `${API_URL}/ai/recipe`
+  const url = `${API_URL}/ai/recipeimage`
   console.log(`getting from recipes from ${url}`)
   try{
       const response = await fetch(url, {
