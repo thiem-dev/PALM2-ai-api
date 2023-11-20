@@ -150,6 +150,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'))
 
+
+
 app.post('/api/ai/recipe', async (req, res) => {
   const { userInput } = req.body
 
@@ -179,6 +181,43 @@ app.post('/api/ai/recipeimage', async (req, res) => {
       res.status(400).json(error)
   }
 });
+
+app.get('/api/pexel/image/:term', async (req, res) => {
+    
+  const { term } = req.params
+  
+  // term = 'cake'
+
+  const url = `https://api.pexels.com/v1/search?query=${term}`
+  
+  console.log('getting images from', url);
+  
+  fetch(url, {
+      headers: {
+          'Authorization': process.env.PEXEL_API_KEY,
+          'Access-Control-Allow-Origin':'*',
+          'Access-Control-Allow-Methods':'GET, POST'
+      }
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+  })
+  .then(data => {
+      // Process the data (array of photos)
+      // console.log(data);
+      res.send(data);
+      // You can now use the data to display images or perform other actions
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
+
+  
+});
+
 
 app.listen(apiPort, () => {
   console.log(`api server listening on port http://localhost:${apiPort}`)
