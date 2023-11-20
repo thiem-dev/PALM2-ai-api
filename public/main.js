@@ -1,5 +1,5 @@
-let API_URL = `http://localhost:3000/api`
-
+// let API_URL = `http://localhost:3000/api`
+let API_URL = `https://bardtest1.onrender.com/api`
 
 const askBtn = document.querySelector('#askBtn');
 
