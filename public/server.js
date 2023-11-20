@@ -61,11 +61,9 @@ async function getAiRecipeTwo(str) {
     },
   });
 
-  
-
   const data = result[0].candidates;
-  console.log(data);
-  return data;
+  const outputs = data.map(item => item.output);
+  return outputs;
 }
 
 
@@ -104,14 +102,6 @@ function parseRecipeStr(str){
     .replace(/\r/g, '')   // Remove carriage returns
     .replace(/\s+/g, ' ') // Replace multiple spaces with a single space)
     .replace(/\\/g, '') // remove the backslashes
-    
-
-    // .replace(/("[^"]*"\s*:\s*\[)([^[\]{}]*)(\s*}$)/, '$1$2]$3')
-    // .replace(/("ingredients": \[.*?),\s*\]/gs, '$1]') // Use the replace method to remove the trailing comma in the "ingredients" array
-    // .replace(/("instructions": \[.*?),\s*\]/gs, '$1]') // Use the replace method to remove the trailing comma in the "instructions" array
-    // .replace(/\\"/g, '"') //replace all occurrences of \" with just "
-
-    // cleanedContent = JSON.stringify(JSON.parse(cleanedContent), null, 2)
 
     // console.log(cleanedContent)
 
@@ -129,7 +119,7 @@ const filterAndParseJSON = (array) => {
   array.forEach((item, index) => {
     try {
       // Attempt to parse the "content" property as JSON
-      const contentStr = item.content;
+      const contentStr = item;
       const parsedStr = parseRecipeStr(contentStr);
       // console.log(parsedStr)
 
@@ -138,7 +128,7 @@ const filterAndParseJSON = (array) => {
       jsonObj[`success${index}`] = {content: recipeObj };
     } catch (error) {
 
-      const contentStr = item.content;
+      const contentStr = item;
       const parsedStr = parseRecipeStr(contentStr);
 
       jsonObj[`failed${index}`] = { reason: error, content: parsedStr };
@@ -165,6 +155,7 @@ app.post('/api/ai/recipe', async (req, res) => {
 
   try{
       const resultCandidates = await getAiRecipeTwo(userInput);
+      
       // res.send(resultCandidates);
       res.send(filterAndParseJSON(resultCandidates));
       
