@@ -19,7 +19,7 @@ const client = new DiscussServiceClient({
   authClient: new GoogleAuth().fromAPIKey(API_KEY),
 });
 
-const sampleJSON = fs.readFileSync('rules4.json')
+const sampleJSON = fs.readFileSync('rules5.json')
 
 async function getAiRecipeOne(str) {
     let introStr = `Give me a recipe that includes: ${str}`
