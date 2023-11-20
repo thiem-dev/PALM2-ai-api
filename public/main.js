@@ -2,6 +2,7 @@
 let API_URL = `https://bardtest1.onrender.com/api`
 
 const askBtn = document.querySelector('#askBtn');
+const outputCtn = document.querySelector('.bardOut-ctn')
 
 askBtn.addEventListener('click', async (e) => {
   const inputObj = {
@@ -12,6 +13,7 @@ askBtn.addEventListener('click', async (e) => {
 
   const recipeData = await getRecipeData(inputObj);
   console.log(recipeData);
+  outputCtn.innerHTML = JSON.stringify(recipeData);
 })
 
 
