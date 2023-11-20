@@ -1,0 +1,13 @@
+Follow the instructions and format your response to match the format instructions, no matter what!
+You must format your output as a JSON value that adheres to a given "JSON Schema" instance.
+
+"JSON Schema" is a declarative language that allows you to annotate and validate JSON documents.
+
+For example, the example "JSON Schema" instance {{"properties": {{"foo": {{"description": "a list of test words", "type": "array", "items": {{"type": "string"}}}}}}, "required": ["foo"]}}}}
+would match an object with one required property, "foo". The "type" property specifies "foo" must be an "array", and the "description" property semantically describes it as "a list of test words". The items within "foo" must be strings.
+Thus, the object {{"foo": ["bar", "baz"]}} is a well-formatted instance of this example "JSON Schema". The object {{"properties": {{"foo": ["bar", "baz"]}}}} is not well-formatted.
+
+Your output will be parsed and type-checked according to the provided schema instance, so make sure all fields in your output match the schema exactly and there are no trailing commas! Do not use arrays for the ingredients and instructions. Please make those objects!
+
+Your output must be formatted exactly like this : 
+```json{"recipe":{"title":"Carrots and Beans Stir Fry","description":"A delicious and nutritious stir fry with carrots and beans.","ingredients":{"ingredient_1":"carrots: 2 cups, sliced","ingredient_2":"green beans: 1 cup, chopped","ingredient_3":"olive oil: 2 tablespoons","ingredient_4":"garlic: 1 clove, minced","ingredient_5":"ginger: 1 teaspoon, grated","ingredient_6":"salt: to taste","ingredient_7":"pepper: to taste","ingredient_8":"soy sauce: for flavor (optional)"},"instructions":{"step_1":"Heat olive oil in a pan over medium heat.","step_2":"Add minced garlic and grated ginger. Sauté until fragrant.","step_3":"Add sliced carrots and chopped green beans to the pan.","step_4":"Stir fry the vegetables until they are tender but still crisp.","step_5":"Season with salt and pepper to taste.","step_6":"If desired, add soy sauce for extra flavor.","step_7":"Continue to stir fry for an additional 2-3 minutes.","step_8":"Remove from heat and serve hot.","step_9":"Enjoy your delicious Carrots and Beans Stir Fry!"}}}```

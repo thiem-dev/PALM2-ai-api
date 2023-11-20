@@ -1,5 +1,6 @@
 // bard stuff to exported to main.js
 const { DiscussServiceClient } = require("@google-ai/generativelanguage");
+const { TextServiceClient } = require("@google-ai/generativelanguage").v1beta2;
 const { GoogleAuth } = require("google-auth-library");
 const fs = require('fs');
 const json5 = require('json5'); //makes json format more forgiving 
@@ -18,9 +19,9 @@ const client = new DiscussServiceClient({
   authClient: new GoogleAuth().fromAPIKey(API_KEY),
 });
 
-const sampleJSON = fs.readFileSync('rules1.json')
+const sampleJSON = fs.readFileSync('rules4.json')
 
-async function getAiRecipe(str) {
+async function getAiRecipeOne(str) {
     let introStr = `Give me a recipe that includes: ${str}`
     let rulejson = sampleJSON;
     let query = `${introStr} ${str} ${rulejson}` 
@@ -28,7 +29,7 @@ async function getAiRecipe(str) {
     const result = await client.generateMessage({
         model: MODEL_NAME, // Required. The model to use to generate the result.
         temperature: 0.5, // Optional. Value `0.0` always uses the highest-probability result.
-        candidateCount: 2, // Optional. The number of candidate results to generate.
+        candidateCount: 5, // Optional. The number of candidate results to generate.
         prompt: {
             // Required. Alternating prompt/response messages.
             messages: [{ content: query }],
@@ -37,6 +38,36 @@ async function getAiRecipe(str) {
     const data = result[0].candidates;
     return data;
 }
+
+
+// chat has a memory, using only single chat
+const client2 = new TextServiceClient({
+  authClient: new GoogleAuth().fromAPIKey(API_KEY),
+});
+
+const MODEL_NAME2 = "models/text-bison-001";
+
+async function getAiRecipeTwo(str) {
+  let introStr = `Give me a recipe that includes: ${str}`
+  let rulejson = sampleJSON;
+  let query = `${introStr} ${str} ${rulejson}` 
+
+  const result = await client2.generateText({
+    model: MODEL_NAME2,
+    temperature: 0.5, // Optional. Value `0.0` always uses the highest-probability result.
+    candidateCount: 5, // Optional. The number of candidate results to generate.
+    prompt: {
+      text: query,
+    },
+  });
+
+  
+
+  const data = result[0].candidates;
+  console.log(data);
+  return data;
+}
+
 
 // So close to an actual working image link. I need to figure out why later
 async function getRecipeImage(){
@@ -65,14 +96,24 @@ function parseRecipeStr(str){
     const regex = /```json([\s\S]*?)```/;
     const match = str.match(regex);
     const jsonString = match[1].trim();
+    
   
-    const cleanedContent = jsonString
+    let cleanedContent = jsonString
     .replace(/\n/g, '')   // Remove newlines
     .replace(/\t/g, '')   // Remove tabs
     .replace(/\r/g, '')   // Remove carriage returns
     .replace(/\s+/g, ' ') // Replace multiple spaces with a single space)
     .replace(/\\/g, '') // remove the backslashes
-    .replace(/,\s*]/, ']') // Use the replace method to remove the trailing comma in the "ingredients" array
+    
+
+    // .replace(/("[^"]*"\s*:\s*\[)([^[\]{}]*)(\s*}$)/, '$1$2]$3')
+    // .replace(/("ingredients": \[.*?),\s*\]/gs, '$1]') // Use the replace method to remove the trailing comma in the "ingredients" array
+    // .replace(/("instructions": \[.*?),\s*\]/gs, '$1]') // Use the replace method to remove the trailing comma in the "instructions" array
+    // .replace(/\\"/g, '"') //replace all occurrences of \" with just "
+
+    // cleanedContent = JSON.stringify(JSON.parse(cleanedContent), null, 2)
+
+    // console.log(cleanedContent)
 
     return cleanedContent;
 
@@ -94,7 +135,7 @@ const filterAndParseJSON = (array) => {
 
       const recipeObj = json5.parse(parsedStr);
 
-      jsonObj[index] = { content: recipeObj };
+      jsonObj[`success${index}`] = {content: recipeObj };
     } catch (error) {
 
       const contentStr = item.content;
@@ -110,6 +151,7 @@ const filterAndParseJSON = (array) => {
 };
 
 
+
 // ------------------------- LOCALHOST SERVER ITEMS
 
 const apiPort = 3000; 
@@ -122,7 +164,7 @@ app.post('/api/ai/recipe', async (req, res) => {
   const { userInput } = req.body
 
   try{
-      const resultCandidates = await getAiRecipe(userInput);
+      const resultCandidates = await getAiRecipeTwo(userInput);
       // res.send(resultCandidates);
       res.send(filterAndParseJSON(resultCandidates));
       
