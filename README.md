@@ -2,7 +2,7 @@
 - use `npm start` or `npm run dev`
 
 ### About App
-- Pexel API**: 
+- **Pexel API**: 
     - Pexel Image Api: Free image api. Restrictions: the API is rate-limited to 200 requests per hour and 20,000 requests per month. See: https://www.pexels.com/api/documentation/#photos-search
     - api route: `app.get('/api/pexel/image/:term'` -> `https://api.pexels.com/v1/search?query=${term}` 
 - **PALM2 API**:
