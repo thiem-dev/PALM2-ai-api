@@ -139,6 +139,6 @@ Thus, the object {{"foo": ["bar", "baz"]}} is a well-formatted instance of this 
 Your output will be parsed and type-checked according to the provided schema instance, so make sure all fields in your output match the schema exactly and there are no trailing commas!
 
 Your output must be formatted exactly like this. The recipe object must have title, description, ingredients, instructions: 
-```json{"recipe":{"title":"Carrots and Beans Stir Fry","description":"A delicious and nutritious stir fry with carrots and beans.","ingredients":"2 tablespoons olive oil, 1 clove garlic, minced, 1 teaspoon ginger, grated, Salt and pepper to taste, Soy sauce for flavor (optional),","instructions":"Step1. Heat olive oil in a pan over medium heat., Step2. Add minced garlic and grated ginger. Sauté until fragrant., Step3 Add sliced carrots and chopped green beans to the pan., Step4 Stir fry the vegetables until they are tender but still crisp."}}```
+/```json{"recipe":{"title":"Carrots and Beans Stir Fry","description":"A delicious and nutritious stir fry with carrots and beans.","ingredients":"2 tablespoons olive oil, 1 clove garlic, minced, 1 teaspoon ginger, grated, Salt and pepper to taste, Soy sauce for flavor (optional),","instructions":"Step1. Heat olive oil in a pan over medium heat., Step2. Add minced garlic and grated ginger. Sauté until fragrant., Step3 Add sliced carrots and chopped green beans to the pan., Step4 Stir fry the vegetables until they are tender but still crisp."}}/```
 
 ```
