@@ -112,33 +112,34 @@
             "9. Sprinkle with chopped green onions and serve.",
         ]
     }}/```
+```
 
 ### Ai prompt rules config
 - the prompt to the PALM2 
 
 ``` 
-let introStr = `Give me a recipe that includes: ${str}`
-let rulejson = sampleJSON;
-let query = `${introStr} ${str} ${rulejson}`
-
-//introStr gives simple context
-//str is the user input
-//below is the rulejson for how ai's prompt should respond. Based on LangChain's style
-
-
-
-Follow the instructions and format your response to match the format instructions, no matter what!
-You must format your output as a JSON value that adheres to a given "JSON Schema" instance.
-
-"JSON Schema" is a declarative language that allows you to annotate and validate JSON documents.
-
-For example, the example "JSON Schema" instance {{"properties": {{"foo": {{"description": "a list of test words", "type": "array", "items": {{"type": "string"}}}}}}, "required": ["foo"]}}}}
-would match an object with one required property, "foo". The "type" property specifies "foo" must be an "array", and the "description" property semantically describes it as "a list of test words". The items within "foo" must be strings.
-Thus, the object {{"foo": ["bar", "baz"]}} is a well-formatted instance of this example "JSON Schema". The object {{"properties": {{"foo": ["bar", "baz"]}}}} is not well-formatted.
-
-Your output will be parsed and type-checked according to the provided schema instance, so make sure all fields in your output match the schema exactly and there are no trailing commas!
-
-Your output must be formatted exactly like this. The recipe object must have title, description, ingredients, instructions: 
-/```json{"recipe":{"title":"Carrots and Beans Stir Fry","description":"A delicious and nutritious stir fry with carrots and beans.","ingredients":"2 tablespoons olive oil, 1 clove garlic, minced, 1 teaspoon ginger, grated, Salt and pepper to taste, Soy sauce for flavor (optional),","instructions":"Step1. Heat olive oil in a pan over medium heat., Step2. Add minced garlic and grated ginger. Sauté until fragrant., Step3 Add sliced carrots and chopped green beans to the pan., Step4 Stir fry the vegetables until they are tender but still crisp."}}/```
+    let introStr = `Give me a recipe that includes: ${str}`
+    let rulejson = sampleJSON;
+    let query = `${introStr} ${str} ${rulejson}`
+    
+    //introStr gives simple context
+    //str is the user input
+    //below is the rulejson for how ai's prompt should respond. Based on LangChain's style
+    
+    
+    
+    Follow the instructions and format your response to match the format instructions, no matter what!
+    You must format your output as a JSON value that adheres to a given "JSON Schema" instance.
+    
+    "JSON Schema" is a declarative language that allows you to annotate and validate JSON documents.
+    
+    For example, the example "JSON Schema" instance {{"properties": {{"foo": {{"description": "a list of test words", "type": "array", "items": {{"type": "string"}}}}}}, "required": ["foo"]}}}}
+    would match an object with one required property, "foo". The "type" property specifies "foo" must be an "array", and the "description" property semantically describes it as "a list of test words". The items within "foo" must be strings.
+    Thus, the object {{"foo": ["bar", "baz"]}} is a well-formatted instance of this example "JSON Schema". The object {{"properties": {{"foo": ["bar", "baz"]}}}} is not well-formatted.
+    
+    Your output will be parsed and type-checked according to the provided schema instance, so make sure all fields in your output match the schema exactly and there are no trailing commas!
+    
+    Your output must be formatted exactly like this. The recipe object must have title, description, ingredients, instructions: 
+    /```json{"recipe":{"title":"Carrots and Beans Stir Fry","description":"A delicious and nutritious stir fry with carrots and beans.","ingredients":"2 tablespoons olive oil, 1 clove garlic, minced, 1 teaspoon ginger, grated, Salt and pepper to taste, Soy sauce for flavor (optional),","instructions":"Step1. Heat olive oil in a pan over medium heat., Step2. Add minced garlic and grated ginger. Sauté until fragrant., Step3 Add sliced carrots and chopped green beans to the pan., Step4 Stir fry the vegetables until they are tender but still crisp."}} /```
 
 ```
