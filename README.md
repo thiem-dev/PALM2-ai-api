@@ -7,7 +7,7 @@
     - api route: `app.get('/api/pexel/image/:term'` -> `https://api.pexels.com/v1/search?query=${term}` 
 - **PALM2 API**:
   - Where to get API key: https://makersuite.google.com/app/apikey 
-  - Is it free? Yes, sorta: https://ngyibin.medium.com/how-to-get-access-to-googles-palm-2-large-language-model-21379f27c078#:~:text=At this stage%2C you may,use%2C unlike GPT-4. 
+  - Is it free? Yes, sorta: https://ngyibin.medium.com/how-to-get-access-to-googles-palm-2-large-language-model-21379f27c078 
   - Google Cloud Console: for managing/view compute/usage stats https://console.cloud.google.com/ 
   - Basic Hello World: https://developers.generativeai.google/tutorials/text_node_quickstart 
   - Why not use Bard?
