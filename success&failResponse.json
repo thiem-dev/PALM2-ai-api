@@ -1,0 +1,48 @@
+{
+    "success0": {
+        "content": {
+            "recipe": {
+                "title": "Chocolate Spaghetti",
+                "description": "A delicious and decadent dessert.",
+                "ingredients": "1 box spaghetti, 1/2 cup chocolate chips, 1/2 cup heavy cream, 1/4 cup butter, 1 teaspoon vanilla extract",
+                "instructions": "Step1. Cook spaghetti according to package directions., Step2. While spaghetti is cooking, melt butter in a saucepan over medium heat., Step3. Add chocolate chips to the melted butter and stir until melted., Step4. Add heavy cream and vanilla extract to the chocolate mixture and stir until combined., Step5. Pour chocolate sauce over cooked spaghetti and serve immediately."
+            }
+        }
+    },
+    "success1": {
+        "content": {
+            "recipe": {
+                "title": "Chocolate Spaghetti",
+                "description": "A delicious and nutritious spaghetti with chocolate.",
+                "ingredients": "1 pound spaghetti, 1/2 cup milk, 1/2 cup heavy cream, 1/4 cup butter, 1/4 cup cocoa powder, 1/4 cup sugar, 1 teaspoon vanilla extract, 1/2 teaspoon salt",
+                "instructions": "Step1. Bring a large pot of salted water to a boil. Add the spaghetti and cook according to the package directions., Step2. While the spaghetti is cooking, melt the butter in a saucepan over medium heat. Add the cocoa powder and sugar and stir until smooth., Step3. Add the milk and cream to the saucepan and bring to a simmer. Reduce heat to low and simmer for 5 minutes, stirring occasionally., Step4. Stir in the vanilla extract and salt., Step5. Drain the spaghetti and add it to the saucepan with the chocolate sauce. Stir to coat the spaghetti in the sauce., Step6. Serve immediately."
+            }
+        }
+    },
+    "success2": {
+        "content": {
+            "recipe": {
+                "title": "Chocolate Spaghetti",
+                "description": "A delicious and decadent chocolate spaghetti.",
+                "ingredients": "1 pound spaghetti noodles, 1 cup heavy cream, 1/2 cup milk, 1/2 cup semisweet chocolate chips, 1/4 cup butter, 1 teaspoon vanilla extract, 1/4 teaspoon salt, 1/8 teaspoon ground cinnamon, 1/8 teaspoon ground nutmeg, Garnish with whipped cream and chocolate shavings,",
+                "instructions": "Step1. Bring a large pot of salted water to a boil. Add the spaghetti noodles and cook according to the package directions., Step2. While the noodles are cooking, melt the butter in a large saucepan over medium heat. Add the chocolate chips and stir until melted., Step3. Add the heavy cream and milk to the saucepan and bring to a simmer. Stir in the vanilla extract, salt, cinnamon, and nutmeg., Step4. Drain the spaghetti noodles and add them to the saucepan with the chocolate sauce. Stir to coat the noodles in the sauce., Step5. Serve immediately, garnished with whipped cream and chocolate shavings."
+            }
+        }
+    },
+    "success3": {
+        "content": {
+            "recipe": {
+                "title": "Chocolate Spaghetti",
+                "description": "A delicious and nutritious spaghetti dish with chocolate.",
+                "ingredients": "1 pound spaghetti noodles, 1 cup milk, 1/2 cup heavy cream, 1/2 cup semisweet chocolate chips, 1/4 cup butter, 1/4 cup brown sugar, 1 teaspoon vanilla extract, 1/2 teaspoon salt, 1/4 teaspoon ground cinnamon, 1/4 teaspoon ground nutmeg, 1/8 teaspoon cayenne pepper",
+                "instructions": "Step1. Bring a large pot of salted water to a boil and cook the spaghetti noodles according to the package directions., Step2. While the noodles are cooking, melt the butter in a large saucepan over medium heat. Add the brown sugar and stir until melted., Step3. Add the milk, heavy cream, chocolate chips, vanilla extract, salt, cinnamon, nutmeg, and cayenne pepper to the saucepan and bring to a simmer., Step4. Reduce heat to low and simmer for 5 minutes, stirring occasionally., Step5. Drain the spaghetti noodles and add them to the saucepan with the chocolate sauce. Stir to coat the noodles in the sauce., Step6. Serve immediately."
+            }
+        }
+    },
+    "failed4": {
+        "reason": {
+            "lineNumber": 1,
+            "columnNumber": 1
+        }
+    }
+}

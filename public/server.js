@@ -62,10 +62,10 @@ async function getAiRecipeTwo(str) {
   });
 
   const data = result[0].candidates;
+  console.log(result)
   const outputs = data.map(item => item.output);
   return outputs;
 }
-
 
 // So close to an actual working image link. I need to figure out why later
 async function getRecipeImage(){
