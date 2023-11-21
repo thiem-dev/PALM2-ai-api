@@ -2,10 +2,10 @@
 - use `npm start` or `npm run dev`
 
 ### About App
-- Pexel API: 
+- Pexel API**: 
     - Pexel Image Api: Free image api. Restrictions: the API is rate-limited to 200 requests per hour and 20,000 requests per month. See: https://www.pexels.com/api/documentation/#photos-search
     - api route: `app.get('/api/pexel/image/:term'` -> `https://api.pexels.com/v1/search?query=${term}` 
-- PALM2 API:
+- **PALM2 API**:
   - Where to get API key: https://makersuite.google.com/app/apikey 
   - Is it free? Yes, sorta: https://ngyibin.medium.com/how-to-get-access-to-googles-palm-2-large-language-model-21379f27c078#:~:text=At this stage%2C you may,use%2C unlike GPT-4. 
   - Google Cloud Console: for managing/view compute/usage stats https://console.cloud.google.com/ 
@@ -18,13 +18,13 @@
         - Basic Hello world: https://bard-ai.js.org/basics/ask/ 
 
 ## Important Notes
-- GoogleAuth: to authenticate your apikey
+- **GoogleAuth**: to authenticate your apikey
 - LLM Model Types used: `MODEL_NAME = "models/chat-bison-001";`
     - other types: https://developers.generativeai.google/models/language 
     - Model Tuning: https://developers.generativeai.google/guide/model_tuning_guidance
 - LLM Libraries: 
-    - DiscussServiceClient: full chat with ai. Has memory of prior conversations. Slow ETA 17s response time
-    - TextServiceClient: simple prompt with ai. No memory of prior convos.Fast ETA 4s response time
+    - **DiscussServiceClient**: full chat with ai. Has memory of prior conversations. Slow ETA 17s response time
+    - **TextServiceClient**: simple prompt with ai. No memory of prior convos.Fast ETA 4s response time
         - Image: `getRecipeImage()` yeah this doesn't work. It just looks like a real link and very similar to a real one, but it's never a real working link 
 
 
