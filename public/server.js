@@ -182,12 +182,10 @@ app.post('/api/ai/recipeimage', async (req, res) => {
   }
 });
 
-app.get('/api/pexel/image/:term', async (req, res) => {
-    
+app.get('/api/pexel/image/:term', async (req, res) => {  
   const { term } = req.params
+    // term = 'cake'
   
-  // term = 'cake'
-
   const url = `https://api.pexels.com/v1/search?query=${term}`
   
   console.log('getting images from', url);
@@ -214,8 +212,6 @@ app.get('/api/pexel/image/:term', async (req, res) => {
   .catch(error => {
       console.error('Error:', error);
   });
-
-  
 });
 
 
