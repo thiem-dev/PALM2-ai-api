@@ -1,6 +1,9 @@
 # Sample PALM2 prompt and response app.
 - use `npm start` or `npm run dev`
 
+## API Routes
+//TODO Add API routes
+
 ### About App
 - **Pexel API**: 
     - Pexel Image Api: Free image api. Restrictions: the API is rate-limited to 200 requests per hour and 20,000 requests per month. See: https://www.pexels.com/api/documentation/#photos-search
